@@ -1,4 +1,5 @@
 from .figure import Figure
+from .moves import moves
 
 def create_new_game_field():
     field = [
@@ -66,13 +67,24 @@ class Game():
         from_x = move['from']['x']
         from_y = move['from']['y']
 
+        print(self.to_json())
         figure = self.field[from_y][from_x]
         if figure is None:
             raise Exception("Net figuri")
         if figure.color != self.turn:
             raise Exception("Ne tvoi hod")
         
-        pass
+        
+        print(figure.kind)
+        figure_move = moves.get(figure.kind)
+
+        print(figure_move)
+
+        field, new_eaten = figure_move(self.field, figure, move['to'])
+
+        self.field = field
+        self.eaten = self.eaten + new_eaten
+        self.turn = 'white' if self.turn == 'black' else 'black'
 
     def to_json(self):
         d = []

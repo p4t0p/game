@@ -1,5 +1,5 @@
 class Figure():
-    def __init__(self, kind, x, y, color):
+    def __init__(self, kind, y, x, color):
         self.kind = kind
         self.x = x
         self.y = y
@@ -12,4 +12,3 @@ class Figure():
             'color': self.color,
             'kind': self.kind,
         }
-
