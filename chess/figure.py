@@ -5,7 +5,7 @@ class Figure():
         self.y = y
         self.color = color
 
-    def to_dict(self):
+    def to_json(self):
         return {
             'x': self.x,
             'y': self.y,

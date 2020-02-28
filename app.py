@@ -15,7 +15,7 @@ def game():
         Создание новой игры
     """
     new_game = Game()
-    return jsonify(new_game.to_dict())
+    return jsonify(new_game.to_json())
 
 
 @app.route('/move', methods=['POST'])
