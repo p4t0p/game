@@ -63,6 +63,15 @@ class Game():
             self.eaten = eaten
 
     def move(self, move):
+        from_x = move['from']['x']
+        from_y = move['from']['y']
+
+        figure = self.field[from_y][from_x]
+        if figure is None:
+            raise Exception("Net figuri")
+        if figure.color != self.turn:
+            raise Exception("Ne tvoi hod")
+        
         pass
 
     def to_json(self):
