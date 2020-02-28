@@ -14,6 +14,7 @@ def game():
     """
         Создание новой игры
     """
+
     new_game = Game()
     return jsonify(new_game.to_json())
 
@@ -24,7 +25,12 @@ def move():
         Сделать шаг игроком
     """
 
-    return jsonify({})
+    print(request.json.get('move'))
+
+    game = Game(request.json.get('field'), request.json.get('turn'), request.json.get('eaten'))
+    game.move()
+
+    return jsonify(game.to_json())
 
 
 if __name__ == '__main__':
