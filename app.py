@@ -1,8 +1,12 @@
 from flask import Flask, escape, request, jsonify
+from flask_cors import CORS
+
 from chess.figure import Figure
 from chess.game import Game
 
 app = Flask(__name__)
+
+CORS(app)
 
 @app.route('/')
 def hello():

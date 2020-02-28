@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./src",
+    "paths": {
+        "api/*": ["./src/api/*"],
+        "components/*": ["./src/components/*"],
+        "containers/*": ["./src/containers/*"],
+        "AC/*": ["./src/AC/*"],
+        "utils/*": ["./src/utils/*"],
+        "selectors/*": ["./src/selectors/*"],
+        "mocks/*": ["./src/__mocks__/*"],
+        "configs/*": ["./configs/*"],
+        "@markoffice/rutoken": ["./src/utils/rutoken/rutoken.local.js"],
+        "@markoffice/api": ["./api/index.js"],
+        "frontend/mocks/":  ["./src/__mocks__/*"]
+    },
+    "alias": {
+      "react": "./node_modules/react"
+    }
+  },
+  "exclude": ["node_modules", "dist", "static"]
+}

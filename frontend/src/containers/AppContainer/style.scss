@@ -1,0 +1,25 @@
+@import "style/global-config";
+
+body {
+  letter-spacing: normal;
+}
+
+.AppContainer {
+
+}
+
+.Field {
+  border: 2px solid black;
+  display: table;
+}
+
+.Row {
+  display: table-row;
+}
+
+.Cell {
+  display: table-cell;
+  width: 100px;
+  height: 100px;
+  border: solid 1px grey;
+}
