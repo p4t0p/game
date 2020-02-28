@@ -34,12 +34,23 @@ def create_new_game_field():
 
     return field
 
+
 class Game():
     def __init__(self, field = None, turn = None, eaten = None):
         if field is None:
             self.field = create_new_game_field()
         else:
-            field = []
+            f = []
+            for i in field:
+                row = []
+                for cell in i:
+                    if cell is None:
+                        row.append(None)
+                    else:
+                        figure = Figure(cell['kind'], cell['y'], cell['x'], cell['color'])
+                        row.append(figure)
+                f.append(row)
+            self.field = f
 
         if turn is None:
             self.turn = 'white'
@@ -50,6 +61,9 @@ class Game():
             self.eaten = []
         else:
             self.eaten = eaten
+
+    def move(self, move):
+        pass
 
     def to_json(self):
         d = []

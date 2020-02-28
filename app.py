@@ -25,10 +25,8 @@ def move():
         Сделать шаг игроком
     """
 
-    print(request.json.get('move'))
-
-    game = Game(request.json.get('field'), request.json.get('turn'), request.json.get('eaten'))
-    game.move()
+    game = Game(request.json['field'], request.json['turn'], request.json['eaten'])
+    game.move(request.json['move'])
 
     return jsonify(game.to_json())
 
