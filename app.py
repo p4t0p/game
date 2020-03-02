@@ -29,10 +29,13 @@ def move():
         Сделать шаг игроком
     """
 
-    game = Game(request.json['field'], request.json['turn'], request.json['eaten'])
-    game.move(request.json['move'])
+    try:
+        game = Game(request.json['field'], request.json['turn'], request.json['eaten'])
+        game.move(request.json['move'])
 
-    return jsonify(game.to_json())
+        return jsonify(game.to_json())
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 
 if __name__ == '__main__':
