@@ -36,11 +36,27 @@ def pawn_move(field, figure, _to):
     return field, [eaten]
 
 def rook_move(field, figure, _to):
+    is_straight = figure.x == _to['x']
+    is_vertical = fugure.y == to['y']
+    eaten = []
+
+    v_diff = _to['y'] - figure.y 
+    h_diff = _to['x'] - figure.x 
+
+    if is_straight:
+        if move_to_fig is not None :
+            raise Exception('Field is not empty')
+
+    if is_vertical:
+        if move_to_fig is not None:
+            raise Exception('Field is not empty')
+
     pass
 
 def knight_move(field, figure, _to):
-    pass
-
+    is_vertical = figure.y == to['y']
+    is_horisonta = figure.x == to['x']
+    if 
 def bishop_move(field, figure, _to):
     pass
 
