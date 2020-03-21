@@ -1,0 +1,82 @@
+@import "../../style/global-config";
+
+body {
+  letter-spacing: normal;
+}
+
+.AppContainer {
+  padding: 24px;
+}
+
+.Field {
+  margin: 20px;
+  border: 2px solid black;
+  display: table;
+  width: 820px;
+  height: 820px;
+}
+
+.Row {
+  display: table-row;
+}
+
+.Cell {
+  display: table-cell;
+  width: 100px;
+  height: 100px;
+  background-image: url('../../images/sprite.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 600%;
+  cursor: pointer;
+}
+
+.Field.turn-white .Cell.black {
+  cursor: initial;
+}
+
+.Field.turn-black .Cell.white {
+  cursor: initial;
+}
+
+.Cell.null {
+  background-image: none;
+  cursor: initial;
+}
+
+.Field.active .Cell.null {
+  background-image: none;
+  cursor: pointer;
+}
+
+.Cell.active {
+  background-color: rgb(93.3%, 91%, 66.7%) !important;
+}
+
+.Cell.pawn {
+  background-position-x: -510px;
+}
+
+.Cell.rook {
+  background-position-x: -410px;
+}
+
+.Cell.knight {
+  background-position-x: -310px;
+}
+
+.Cell.bishop {
+  background-position-x: -210px;
+}
+
+.Cell.king {
+  background-position-x: -105px;
+}
+
+.Cell.black {
+  background-position-y: -100px;
+}
+
+.Cell.bg-black {
+  background-color: #666;
+}

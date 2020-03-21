@@ -11,6 +11,7 @@ def pawn_move(field, figure, _to):
     step_one, step_two = (1, 2) if figure.color == 'black' else (-1, -2)
 
     figure_after_move = Figure('pawn', _to['y'], _to['x'], figure.color)
+
     if is_straight:
         if move_to_fig is not None:
             raise Exception('Field is not empty')
@@ -28,12 +29,14 @@ def pawn_move(field, figure, _to):
         if move_to_fig is None or move_to_fig.color == figure.color:
             raise Exception('Invalid move')
 
-        if v_diff == 1 and abs(h_diff) == 1:
-            eaten = move_to_fig
+        if abs(v_diff) == 1 and abs(h_diff) == 1:
+            eaten = [move_to_fig]
             field[_to['y']][_to['x']] = figure_after_move
             field[figure.y][figure.x] = None
+        else:
+            raise Exception('Invalid move')
 
-    return field, [eaten]
+    return field, eaten
 
 def rook_move(field, figure, _to):
     is_straight = figure.x == _to['x']

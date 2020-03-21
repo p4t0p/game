@@ -1,0 +1,354 @@
+$def-border-radius: 8px;
+$def-transition-options: 0.2s ease-in;
+
+@mixin block() {
+  padding: 3 * $unit;
+  background-color: $palette-white;
+  border-radius: $def-border-radius;
+}
+
+@mixin block-inactive() {
+  @include block;
+  @include shadow-block-1dp($palette-main-1, $shadow-key-antumbra-opacity);
+}
+
+@mixin block-1() {
+  @include block;
+  @include shadow-block-4dp($palette-main-1, $shadow-key-antumbra-opacity);
+}
+
+@mixin block-2() {
+  @include block;
+  @include shadow-block-3dp($palette-main-1, $shadow-key-penumbra-opacity);
+}
+
+@mixin block-popup() {
+  @include block;
+  @include shadow-block-2dp($palette-main-1, $shadow-key-umbra-opacity);
+}
+
+@mixin block-alert() {
+  padding: 2 * $unit;
+  background-color: $palette-noactive-6;
+  border-radius: $def-border-radius;
+}
+
+/* Device sizes */
+$maxTabletSize: 1200px;
+$maxMobileSize: 672px;
+
+$mediaFullMenu: 1200px;
+$FullMenuWidth: 246px;
+$SmallMenuWidth: 80px;
+
+$palette-main-1: #36474f; // основной
+$palette-main-2: #5c6a70; // 80%
+$palette-main-3: #f6f6f7; // 5%
+
+$palette-primary-1: #358ed7; // основной
+$palette-primary-2: #257dc4; // hover
+$palette-primary-3: #18649f; // dark
+$palette-primary-4: #5da5df; // 80%
+$palette-primary-5: #86bbe7; // 60%
+$palette-primary-6: #b9d8f1; // 35%
+$palette-primary-7: #d7e8f7; // 20%
+
+$palette-positive-1: #7ed321; // основной
+$palette-positive-2: #71c101; // hover
+$palette-positive-3: #66b101; // dark
+$palette-positive-4: #b2e47a; // 60%
+$palette-positive-5: #e5f6d3; // 20%
+
+$palette-negative-1: #f01526; // основной
+$palette-negative-2: #d50115; // hover
+$palette-negative-3: #9b0001; // dark
+$palette-negative-4: #f9a1a8; // 40%
+$palette-negative-5: #fde7e9; // 10%
+
+$palette-noactive-1: #828d91; // 60%
+$palette-noactive-2: #c5c5c5;
+$palette-noactive-3: #9aa3a7; // 50%
+$palette-noactive-4: #afb5b9; // 40%
+$palette-noactive-5: #d7dadc; // 20%
+$palette-noactive-6: #eaeced; // 10%
+
+$palette-warning-1: #f8c51c;
+$palette-warning-2: #ffc000;
+
+$palette-white: #fff;
+$palette-black: #000;$font-family-roboto: 'Roboto';
+$preferred-font: $font-family-roboto, 'Helvetica', 'Arial', sans-serif;
+
+@mixin transparent-linear-gradient($place, $r, $g, $b) {
+    background-image: linear-gradient(to $place, rgba($r, $g, $b, 0), rgba($r, $g, $b, 1))
+}
+
+$shadow-key-umbra-opacity: 0.55;
+$shadow-key-penumbra-opacity: 0.3;
+$shadow-key-antumbra-opacity: 0.09;
+
+$shadow-block-umbra-opacity: 0.4;
+$shadow-block-penumbra-opacity: 0.2;
+$shadow-block-antumbra-opacity: 0.08;
+
+@mixin shadow-4dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: 3px 4px 17px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-inset-4dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: inset 3px 4px 17px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-1dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: 0 1px 2px 0 rgba($color, $opacity), 0 0 2px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-inset-1dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: inset 0 1px 2px 0 rgba($color, $opacity), 0 0 2px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-4dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: 3px 4px 17px 0 rgba($color, $opacity);
+}
+
+// shadow-blocks
+@mixin shadow-block-4dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: 6px 6px 18px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-block-3dp($color: #000, $opacity: $shadow-key-penumbra-opacity) {
+  box-shadow: 3px 3px 18px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-block-2dp($color: #000, $opacity: $shadow-key-umbra-opacity) {
+  box-shadow: 2px 6px 16px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-block-1dp($color: #000, $opacity: $shadow-key-antumbra-opacity) {
+  box-shadow: 2px 2px 6px 0 rgba($color, $opacity);
+}
+
+@mixin shadow-colored-primary() {
+  @include shadow-4dp($palette-primary-1, $shadow-key-penumbra-opacity);
+}
+
+@mixin shadow-colored-positive() {
+  @include shadow-4dp($palette-positive-1, $shadow-key-umbra-opacity);
+}
+
+@mixin shadow-colored-negative() {
+  @include shadow-4dp($palette-negative-1, $shadow-key-penumbra-opacity);
+}
+
+@mixin shadow-colored-noactive() {
+  @include shadow-4dp($palette-noactive-1, $shadow-key-umbra-opacity);
+}
+
+@mixin shadow-colored-warning() {
+  @include shadow-4dp($palette-warning-1, $shadow-key-umbra-opacity);
+}
+
+@mixin shadow-primary-filled-active() {
+  @include shadow-inset-1dp($palette-primary-3, $shadow-key-umbra-opacity);
+}
+
+@mixin shadow-negative-filled-active() {
+  @include shadow-inset-1dp($palette-primary-3, $shadow-key-umbra-opacity);
+}
+
+@mixin shadow-active() {
+  @include shadow-inset-1dp($palette-noactive-1, $shadow-key-umbra-opacity);
+}
+
+@mixin typography-headline() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.7px;
+}
+
+@mixin typography-title() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.7px;
+}
+
+@mixin typography-subheader() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.4px;
+}
+
+@mixin typography-input__text() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.4px;
+}
+
+@mixin typography-info__text() {
+  color: $palette-noactive-4;
+  font-family: $preferred-font;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.4px;
+}
+
+@mixin typography-body__accent() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: 0.4px;
+}
+
+@mixin typography-body() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: 0.4px;
+}
+
+@mixin typography-body3() {
+  color: $palette-main-1;
+  font-family: $preferred-font;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  opacity: 0.6;
+}
+
+@mixin typography-button() {
+  color: $palette-noactive-1;
+  font-family: $preferred-font;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.3px;
+}
+
+@mixin typography-caption() {
+  color: $palette-noactive-3;
+  font-family: $preferred-font;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: 0.3px;
+}
+
+@mixin typography-tab__title() {
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+@mixin typography-link() {
+  color: $palette-primary-1;
+  font-family: $preferred-font;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.4px;
+  text-decoration: underline;
+}
+
+@mixin typography-title__tab() {
+  color: $palette-main-2;
+  font-family: $font-family-roboto;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 100;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}$unit: 10px;
+
+
+$xs-size: 960px;
+$sm-size: 1280px;
+$md-size: 1400px;
+$lg-size: 1600px;
+$xl-size: 3200px;
+
+
+%table-cell {
+  display: flex;
+  align-items: center;
+  height: inherit;
+  padding: 12px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+@mixin table() {
+  &__tableHead {
+    @include typography-title__tab;
+
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: 2px 20px 8px;
+  }
+
+  &__tableFooter,
+  &__tableRow {
+    width: 100%;
+    padding: 2px 20px 8px;
+    box-sizing: border-box;
+  }
+
+  &__tableRow__inner {
+    @include block-1;
+    @include shadow-block-4dp;
+    width: 100%;
+    padding: 0;
+    border-radius: 8px;
+
+    &:hover {
+      @include shadow-block-1dp();
+    }
+
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+  }
+
+  &__tableCell {
+    @extend %table-cell;
+  }
+
+  &__tableCell_right {
+    @extend %table-cell;
+    justify-content: flex-end;
+  }
+
+  &__tableCellButton {
+    justify-content: flex-end;
+
+    .iconFont {
+      font-size: 34px;
+    }
+  }
+}

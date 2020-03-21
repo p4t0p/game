@@ -67,23 +67,19 @@ class Game():
         from_x = move['from']['x']
         from_y = move['from']['y']
 
-        print(self.to_json())
         figure = self.field[from_y][from_x]
+
         if figure is None:
-            raise Exception("Net figuri")
+            raise Exception("Not figure")
         if figure.color != self.turn:
-            raise Exception("Ne tvoi hod")
-        
-        
-        print(figure.kind)
+            raise Exception(f'Not {figure.color}\'s turn')
+
+
         figure_move = moves.get(figure.kind)
-
-        print(figure_move)
-
         field, new_eaten = figure_move(self.field, figure, move['to'])
 
         self.field = field
-        self.eaten = self.eaten + new_eaten
+        self.eaten = self.eaten + [f.to_json() for f in new_eaten]
         self.turn = 'white' if self.turn == 'black' else 'black'
 
     def to_json(self):
@@ -97,4 +93,4 @@ class Game():
                     row.append(j.to_json())
             d.append(row)
 
-        return {'field':d, 'eaten':self.eaten, 'turn':self.turn}
+        return {'field':d, 'eaten': self.eaten, 'turn':self.turn}
