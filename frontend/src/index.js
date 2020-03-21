@@ -1,4 +1,3 @@
-import 'atol-atoms/global-style.css';
 import 'core-js';
 
 import React from 'react';

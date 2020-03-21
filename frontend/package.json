@@ -39,7 +39,6 @@
   },
   "author": "",
   "dependencies": {
-    "atol-atoms": "^5.5.2",
     "core-js": "^3.2.1",
     "husky": "^3.0.4",
     "prop-types": "^15.7.2",

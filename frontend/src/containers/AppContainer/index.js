@@ -1,8 +1,5 @@
 import React, {Suspense} from 'react';
 
-import Button from 'atol-atoms/Button';
-import Loader from 'atol-atoms/Loader';
-
 import './style.scss';
 
 function Field({field, makeMove, turn}) {
@@ -98,12 +95,12 @@ export default function AppContainer() {
     }
 
     if (isLoading) {
-        return <Loader active />;
+        return <h1>Loading</h1>
     }
 
     return (
         <div className="AppContainer">
-            <Button onClick={start}>Новая игра</Button>
+            <button onClick={start}>Новая игра</button>
             <Field field={data.field} turn={data.turn} makeMove={makeMove} />
         </div>
 
