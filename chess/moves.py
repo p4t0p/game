@@ -99,18 +99,20 @@ def bishop_move(field, figure, _to):
     is_vertical = figure.x == _to['x']
     is_horizontal= figure.y == _to['y']
     to_fig = field[_to['y']][_to['x']]
-    h_diff = abs(_to['x'] - figure.x)
-    v_diff = abs(_to['y'] - figure.y)
+    h_diff = _to['x'] - figure.x
+    v_diff = _to['y'] - figure.y
     
-    
+    direction = ((1,1),(-1,1),(-1,-1),(1,-1))
+
+
 
     if v_diff - h_diff != 0:
         raise Exception('Inavalid move')
 
     
 
-     if to_fig is not None:
-            if to_fig.color == figure.color:
+    if to_fig is not None:
+        if to_fig.color == figure.color:
             raise Exception('Invalid move')
         eaten = [to_fig]
         
