@@ -76,8 +76,8 @@ def knight_move(field, figure, _to):
 
     eaten = []
 
-    v_diff = abs(_to['y'] - figure.y) # разница вертикальная
-    h_diff = abs(_to['x'] - figure.x) # разница горизонтальная
+    v_diff = abs(_to['y'] - figure.y) 
+    h_diff = abs(_to['x'] - figure.x) 
     
                  
     is_valid = v_diff==2 and h_diff==1 or v_diff==1 and h_diff==2
@@ -95,6 +95,30 @@ def knight_move(field, figure, _to):
     
     return field,eaten
 def bishop_move(field, figure, _to):
+    eaten = []
+    is_vertical = figure.x == _to['x']
+    is_horizontal= figure.y == _to['y']
+    to_fig = field[_to['y']][_to['x']]
+    h_diff = abs(_to['x'] - figure.x)
+    v_diff = abs(_to['y'] - figure.y)
+    
+    
+
+    if v_diff - h_diff != 0:
+        raise Exception('Inavalid move')
+
+    
+
+     if to_fig is not None:
+            if to_fig.color == figure.color:
+            raise Exception('Invalid move')
+        eaten = [to_fig]
+        
+    field[figure.y][figure.x] = None
+    field[_to['y']][_to['x']] = Figure('bishop', _to['y'], _to['x'], figure.color)
+    
+    return field,eaten
+        
     pass
 
 def queen_move(field, figure, _to):

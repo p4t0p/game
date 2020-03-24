@@ -18,8 +18,8 @@ def create_new_game_field():
     field[0][5] = Figure('bishop', 0, 5, 'black')
     field[0][2] = Figure('bishop', 0, 2, 'black')
 
-    field[0][3] = Figure('queen', 0, 3, 'black')
-    field[0][4] = Figure('king', 0, 4, 'black')
+    field[0][3] = Figure('king', 0, 3, 'black')
+    field[0][4] = Figure('queen', 0, 4, 'black')
 
     field[7][0] = Figure('rook', 7, 0, 'white')
     field[7][7] = Figure('rook', 7, 7, 'white')
@@ -30,8 +30,8 @@ def create_new_game_field():
     field[7][2] = Figure('bishop',7,2,'white')
     field[7][5] = Figure('bishop',7,5,'white')
 
-    field[7][3] = Figure('queen',7,3,'white')
-    field[7][4] = Figure('king',7,4,'white')
+    field[7][3] = Figure('king',7,3,'white')
+    field[7][4] = Figure('queen',7,4,'white')
 
     return field
 

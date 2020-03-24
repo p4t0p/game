@@ -16,7 +16,7 @@ def hello():
 @app.route('/game', methods=['POST'])
 def game():
     """
-        Создание новой игры
+        New Game
     """
 
     new_game = Game()
@@ -26,7 +26,7 @@ def game():
 @app.route('/move', methods=['POST'])
 def move():
     """
-        Сделать шаг игроком
+        Player Move
     """
 
     try:
