@@ -1,6 +1,8 @@
 from flask import Flask, escape, request, jsonify
 from flask_cors import CORS
+
 import traceback
+
 from chess.figure import Figure
 from chess.game import Game
 
@@ -35,6 +37,7 @@ def move():
         
         return jsonify(game.to_json())
     except Exception as e:
+        # traceback.print_exception(e)
         return jsonify({'error': str(e)})
 
 

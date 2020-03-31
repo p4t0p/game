@@ -154,9 +154,9 @@ def queen_move(field, figure, _to):
         v_range = range(figure.y + v_d, _to['y'], v_d) 
 
         index = 0;
-        while index < len(h_range):
-            x = figure.x if h_range == [] else h_range[index]
-            y = figure.y if v_range == [] else v_range[index]
+        while index < max(len(h_range), len(v_range)):
+            x = figure.x if len(h_range) == 0 else h_range[index]
+            y = figure.y if len(v_range) == 0 else v_range[index]
             if field[y][x] is not None:
                 raise Exception ('invalid move')
             index +=1
