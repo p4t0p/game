@@ -32,7 +32,11 @@ def move():
     """
 
     try:
-        game = Game(request.json['field'], request.json['turn'], request.json['eaten'])
+        game = Game(request.json['field'], {
+            'turn': request.json['turn'],
+            'eaten': request.json['eaten'],
+            'check': request.json['check'],
+        })
         game.move(request.json['move'])
         
         return jsonify(game.to_json())

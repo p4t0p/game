@@ -1,6 +1,10 @@
 from .figure import Figure
 from .moves import moves
 
+def is_check(field, color):
+    # TODO
+    pass
+
 def create_new_game_field():
     field = [
         [None for i in range(8)] for j in range(8)
@@ -37,7 +41,7 @@ def create_new_game_field():
 
 
 class Game():
-    def __init__(self, field = None, turn = None, eaten = None):
+    def __init__(self, field = None, params = None):
         if field is None:
             self.field = create_new_game_field()
         else:
@@ -48,20 +52,19 @@ class Game():
                     if cell is None:
                         row.append(None)
                     else:
-                        figure = Figure(cell['kind'], cell['y'], cell['x'], cell['color'])
+                        figure = Figure(cell['kind'], cell['y'], cell['x'], cell['color'], cell['is_moved'])
                         row.append(figure)
                 f.append(row)
             self.field = f
 
-        if turn is None:
-            self.turn = 'white'
+        if params is None:
+            self.params = {
+                'turn': 'white',
+                'eaten': [],
+                'check': None,
+            }
         else:
-            self.turn = turn
-
-        if eaten is None:
-            self.eaten = []
-        else:
-            self.eaten = eaten
+            self.params = params
 
     def move(self, move):
         from_x = move['from']['x']
@@ -71,16 +74,20 @@ class Game():
 
         if figure is None:
             raise Exception("Not figure")
-        if figure.color != self.turn:
+        if figure.color != self.params['turn']:
             raise Exception(f'Not {figure.color}\'s turn')
 
 
         figure_move = moves.get(figure.kind)
         field, new_eaten = figure_move(self.field, figure, move['to'])
 
+        color = 'white' if self.params['turn'] == 'black' else 'black'
         self.field = field
-        self.eaten = self.eaten + [f.to_json() for f in new_eaten]
-        self.turn = 'white' if self.turn == 'black' else 'black'
+        self.params = {
+            'eaten': self.params['eaten'] + [f.to_json() for f in new_eaten],
+            'turn': color,
+            'check': is_check(self.field, color)
+        }
 
     def to_json(self):
         d = []
@@ -93,4 +100,9 @@ class Game():
                     row.append(j.to_json())
             d.append(row)
 
-        return {'field':d, 'eaten': self.eaten, 'turn':self.turn}
+        return {
+            'field': d,
+            'eaten': self.params['eaten'],
+            'turn': self.params['turn'],
+            'check': self.params['check'],
+        }

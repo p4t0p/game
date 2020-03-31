@@ -1,5 +1,9 @@
 from .figure import Figure
 
+def castling(field, figure, _to):
+    # TODO
+    pass
+
 def pawn_move(field, figure, _to):
     is_straight = figure.x == _to['x']
     move_to_fig = field[_to['y']][_to['x']]
@@ -10,7 +14,7 @@ def pawn_move(field, figure, _to):
 
     step_one, step_two = (1, 2) if figure.color == 'black' else (-1, -2)
 
-    figure_after_move = Figure('pawn', _to['y'], _to['x'], figure.color)
+    figure_after_move = Figure('pawn', _to['y'], _to['x'], figure.color, True)
 
     if is_straight:
         if move_to_fig is not None:
@@ -46,6 +50,11 @@ def rook_move(field, figure, _to):
     h_direction = 1 if _to['x'] - figure.x > 0 else -1
     v_direction = 1 if _to['y'] - figure.y > 0 else -1
 
+    move_to_fig = field[_to['y']][_to['x']]
+
+    if move_to_fig is not None and move_to_fig.kind == 'king' and move_to_fig.color == figure.color and not move_to_fig.is_moved:
+        return castling(field, figure, _to)
+
     if is_straight:
         for x in range(figure.x + h_direction, _to['x'], h_direction):
             if field[figure.y][x] is not None:
@@ -56,9 +65,6 @@ def rook_move(field, figure, _to):
                 raise Exception('Invalid move')        
     else:
          raise Exception('Invalid move')
-    
-       
-    move_to_fig = field[_to['y']][_to['x']]
 
     if move_to_fig is not None:
         if move_to_fig.color == figure.color:
@@ -66,7 +72,7 @@ def rook_move(field, figure, _to):
         eaten = [move_to_fig]
     
     field[figure.y][figure.x] = None
-    field[_to['y']][_to['x']] = Figure('rook', _to['y'], _to['x'], figure.color)
+    field[_to['y']][_to['x']] = Figure('rook', _to['y'], _to['x'], figure.color, True)
     
     return field, eaten
 
@@ -91,7 +97,7 @@ def knight_move(field, figure, _to):
         eaten = [to_fig]
     
     field[figure.y][figure.x] = None
-    field[_to['y']][_to['x']] = Figure('knight', _to['y'], _to['x'], figure.color)
+    field[_to['y']][_to['x']] = Figure('knight', _to['y'], _to['x'], figure.color, True)
     
     return field,eaten
 
@@ -117,7 +123,6 @@ def bishop_move(field, figure, _to):
     h_range = range(figure.x + h_d, _to['x'], h_d) # [1,2,3] x - координаты
     v_range = range(figure.y + v_d, _to['y'], v_d) # [1,2,3] y - координаты
     
-    
     index = 0;
     while index < len(h_range):
         x = h_range[index]
@@ -125,16 +130,11 @@ def bishop_move(field, figure, _to):
         if field[y][x] is not None:
             raise Exception('invalid move')
         index +=1
-        
-        
-    
-        
+
     field[figure.y][figure.x] = None
-    field[_to['y']][_to['x']] = Figure('bishop', _to['y'], _to['x'], figure.color)
+    field[_to['y']][_to['x']] = Figure('bishop', _to['y'], _to['x'], figure.color, True)
     
     return field,eaten
-        
-    pass
 
 def queen_move(field, figure, _to):
     eaten = []
@@ -169,7 +169,7 @@ def queen_move(field, figure, _to):
         eaten = [to_fig]
         
     field[figure.y][figure.x] = None
-    field[_to['y']][_to['x']] = Figure('queen', _to['y'], _to['x'], figure.color)
+    field[_to['y']][_to['x']] = Figure('queen', _to['y'], _to['x'], figure.color, True)
     
     return field,eaten
 
@@ -181,6 +181,9 @@ def king_move(field, figure, _to):
     
     v_diff = abs(_to['y'] - figure.y) 
     h_diff = abs(_to['x'] - figure.x)
+
+    if to_fig is not None and to_fig.kind == 'king' and to_fig.color == figure.color and not to_fig.is_moved:
+        return castling(field, figure, _to)
     
     if not (v_diff <=1 and h_diff <=1):
         raise Exception('Invalid move')
@@ -191,7 +194,7 @@ def king_move(field, figure, _to):
         eaten = [to_fig]
     
     field[figure.y][figure.x] = None
-    field[_to['y']][_to['x']] = Figure('king', _to['y'], _to['x'], figure.color)
+    field[_to['y']][_to['x']] = Figure('king', _to['y'], _to['x'], figure.color, True)
     
     return field,eaten
 
