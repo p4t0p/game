@@ -94,27 +94,40 @@ def knight_move(field, figure, _to):
     field[_to['y']][_to['x']] = Figure('knight', _to['y'], _to['x'], figure.color)
     
     return field,eaten
+
 def bishop_move(field, figure, _to):
     eaten = []
-    is_vertical = figure.x == _to['x']
-    is_horizontal= figure.y == _to['y']
     to_fig = field[_to['y']][_to['x']]
+
     h_diff = _to['x'] - figure.x
     v_diff = _to['y'] - figure.y
     
-    direction = ((1,1),(-1,1),(-1,-1),(1,-1))
+    h_d = 1 if _to['x'] - figure.x > 0 else -1
+    v_d = 1 if _to['y'] - figure.y > 0 else -1
 
 
-
-    if v_diff - h_diff != 0:
+    if abs(v_diff) - abs(h_diff) != 0:
         raise Exception('Inavalid move')
-
-    
 
     if to_fig is not None:
         if to_fig.color == figure.color:
             raise Exception('Invalid move')
         eaten = [to_fig]
+     
+    h_range = range(figure.x + h_d, _to['x'], h_d) # [1,2,3] x - координаты
+    v_range = range(figure.y + v_d, _to['y'], v_d) # [1,2,3] y - координаты
+    
+    
+    index = 0;
+    while index < len(h_range):
+        x = h_range[index]
+        y = v_range[index]
+        if field[y][x] is not None:
+            raise Exception('invalid move')
+        index +=1
+        
+        
+    
         
     field[figure.y][figure.x] = None
     field[_to['y']][_to['x']] = Figure('bishop', _to['y'], _to['x'], figure.color)
@@ -124,7 +137,41 @@ def bishop_move(field, figure, _to):
     pass
 
 def queen_move(field, figure, _to):
-    pass
+    eaten = []
+    to_fig = field[_to['y']][_to['x']]
+    h_diff = _to['x'] - figure.x
+    v_diff = _to['y'] - figure.y
+   
+    is_vertical = figure.x == _to['x']
+    is_straight= figure.y == _to['y']
+    is_diagonal = abs(v_diff) - abs(h_diff) == 0
+    
+
+    if is_vertical or is_straight or is_diagonal:
+        h_d = 1 if _to['x'] - figure.x > 0 else -1
+        v_d = 1 if _to['y'] - figure.y > 0 else -1
+        h_range = range(figure.x + h_d, _to['x'], h_d)
+        v_range = range(figure.y + v_d, _to['y'], v_d) 
+
+        index = 0;
+        while index < len(h_range):
+            x = figure.x if h_range == [] else h_range[index]
+            y = figure.y if v_range == [] else v_range[index]
+            if field[y][x] is not None:
+                raise Exception ('invalid move')
+            index +=1
+    else:
+        raise Exception('Invalid move')
+        
+    if to_fig is not None:
+        if to_fig.color == figure.color:
+            raise Exception('Invalid move')
+        eaten = [to_fig]
+        
+    field[figure.y][figure.x] = None
+    field[_to['y']][_to['x']] = Figure('queen', _to['y'], _to['x'], figure.color)
+    
+    return field,eaten
 
 def king_move(field, figure, _to):
     is_horizontal = figure.x == _to['x']
@@ -132,8 +179,8 @@ def king_move(field, figure, _to):
     to_fig = field[_to['y']][_to['x']]
     eaten = []
     
-    v_diff = abs(_to['y'] - figure.y) # разница вертикальная
-    h_diff = abs(_to['x'] - figure.x)# разница горизонтальная
+    v_diff = abs(_to['y'] - figure.y) 
+    h_diff = abs(_to['x'] - figure.x)
     
     if not (v_diff <=1 and h_diff <=1):
         raise Exception('Invalid move')
