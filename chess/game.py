@@ -1,9 +1,34 @@
 from .figure import Figure
 from .moves import moves
 
+
 def is_check(field, color):
-    # TODO
-    pass
+    field = field.copy()
+    
+    king_coords = {'x': None, 'y': None}
+    opposite_figures = []
+    
+    for x in range(8):
+        for y in range(8):
+            fig = field[y][x]
+
+            if fig != None and fig.color != color:
+                opposite_figures.append(fig)
+
+            if fig != None and fig.kind == 'king' and fig.color == color:
+                king_coords['x'] = x
+                king_coords['y'] = y
+                
+    for fig in opposite_figures:
+        figure_move = moves.get(fig.kind)
+        
+        try:
+            figure_move(field, fig, king_coords)
+            return True
+        except:
+            pass
+        
+    return False
 
 def create_new_game_field():
     field = [

@@ -1,8 +1,33 @@
 from .figure import Figure
 
-def castling(field, figure, _to):
-    # TODO
-    pass
+
+def castling(field, rook, king,):
+    h_direction = 1 if king.x - rook.x > 0 else -1
+    for x in range(rook.x + h_direction, king.x, h_direction):
+        if field[rook.y][x] is not None:
+            raise Exception('Invalid move')    
+
+    if rook.x == 0:
+        field[rook.y][rook.x] = None
+        
+        new_rook = Figure('rook', rook.y, 2, rook.color, True)
+        field[rook.y][2] = new_rook
+        
+        field[king.y][king.x] = None
+        new_king = Figure('king', king.y, 1, king.color, True)
+        field[king.y][1] = new_king
+    else:
+        field[rook.y][rook.x] = None
+        
+        new_rook = Figure('rook', rook.y, 5, rook.color, True)
+        field[rook.y][5] = new_rook
+        
+        field[king.y][king.x] = None
+        new_king = Figure('king', king.y, 6, king.color, True)
+        field[king.y][6] = new_king
+
+    return field, []
+
 
 def pawn_move(field, figure, _to):
     is_straight = figure.x == _to['x']
@@ -42,6 +67,7 @@ def pawn_move(field, figure, _to):
 
     return field, eaten
 
+
 def rook_move(field, figure, _to):
     is_vertical = figure.x == _to['x']
     is_straight= figure.y == _to['y']
@@ -52,8 +78,8 @@ def rook_move(field, figure, _to):
 
     move_to_fig = field[_to['y']][_to['x']]
 
-    if move_to_fig is not None and move_to_fig.kind == 'king' and move_to_fig.color == figure.color and not move_to_fig.is_moved:
-        return castling(field, figure, _to)
+    if move_to_fig is not None and move_to_fig.kind == 'king' and move_to_fig.color == figure.color and not move_to_fig.is_moved and not figure.is_moved:
+        return castling(field, figure, move_to_fig)
 
     if is_straight:
         for x in range(figure.x + h_direction, _to['x'], h_direction):
@@ -173,6 +199,7 @@ def queen_move(field, figure, _to):
     
     return field,eaten
 
+
 def king_move(field, figure, _to):
     is_horizontal = figure.x == _to['x']
     is_vertical = figure.y == _to['y']
@@ -182,8 +209,8 @@ def king_move(field, figure, _to):
     v_diff = abs(_to['y'] - figure.y) 
     h_diff = abs(_to['x'] - figure.x)
 
-    if to_fig is not None and to_fig.kind == 'king' and to_fig.color == figure.color and not to_fig.is_moved:
-        return castling(field, figure, _to)
+    if to_fig is not None and to_fig.kind == 'king' and to_fig.color == figure.color and not to_fig.is_moved and not figure.is_moved:
+        return castling(field, to_fig, figure)
     
     if not (v_diff <=1 and h_diff <=1):
         raise Exception('Invalid move')
